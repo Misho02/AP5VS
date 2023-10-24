@@ -1,0 +1,16 @@
+
+public class Hlavni {
+
+	public static void main(String[] args) {
+		System.out.println("Ahoj světe");
+		int result = 10 % 3;
+		if (result == 1) {
+			System.out.println("Výsledek je: " + result);
+		}
+		else
+			System.out.println("Nepodařilo se");
+		
+
+	}
+
+}

@@ -1,0 +1,87 @@
+import java.net.*;
+import java.util.concurrent.Executors;
+import java.io.*;
+
+
+class mojeVlakno extends Thread {
+	Socket s;
+	public mojeVlakno(Socket s) {
+		this.s = s;
+	}
+	public void run() {
+		int pocet, pocetBajtu = 0;
+		byte [] buffer = new byte [10000];
+		InputStream inp;
+		try {
+			inp = s.getInputStream();
+			while ((pocet = inp.read(buffer))!= -1) {
+				pocetBajtu += pocet;
+			}
+			System.out.println("Server ukoncil  spojeni = vlakno konci");
+			s.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			if (s.isClosed()) System.err.println("Konec vlakna, protoze socket je uzavren!");
+			System.err.println("Chyba při přečtení socketu!");
+		}
+		System.out.printf("Prijal jsem  %d bajtu\n", pocetBajtu);
+	}
+	
+}
+
+
+class mujUkol implements Runnable {
+	private String host;
+	private int port;
+	public mujUkol(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
+	public void run(){
+		int pocetPozadavku = 0, pocetBajtu = 0;
+		try {
+			Socket s = new Socket(host, port);
+			System.out.println("Pripojeni OK");
+			mojeVlakno v = new mojeVlakno(s);
+			v.start();
+			OutputStream outp = s.getOutputStream();
+			byte [] request = ("GET / HTTP/1.1\r\n"
+					+ "Host: " + host + "\r\n"
+					+ "Connection:keep-alive\r\n\r\n").getBytes();
+			while (s.isConnected()) {
+				outp.write(request);
+				outp.flush();
+				pocetPozadavku++;
+				pocetBajtu += request.length;
+			}
+			System.out.println("main() > socket je closed, koncime...");
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.err.println("main:UnknownException");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			System.err.println("main:IOException");
+		}
+		System.out.printf("Odeslano %d pozadavku, %d bajtu\n", pocetPozadavku, pocetBajtu);
+	}
+}
+
+
+public class Hlavni {
+
+	public static void main(String[] args) {
+		if (args.length < 2) {
+			System.out.println("Ocekavam 2 parametry: host port");
+			return;
+		}
+		String host = args[0];
+		int port = Integer.parseInt(args[1]);
+		mujUkol u = new mujUkol(host, port);
+		ExecutorService executor = Executors.newFixedThreadPool(10000);
+	}
+
+}

@@ -1,0 +1,36 @@
+import java.net.*;
+import java.io.*;
+
+
+class mojeVlakno extends Thread {
+	Socket s;
+	public mojeVlakno(Socket s) {
+		this.s = s;
+	}
+	public void Run() {
+		int pocet, pocetBajtu = 0;
+		byte [] buffer = new byte [10000];
+		InputStream inp;
+		try {
+			inp = s.getInputStream();
+			while ((pocet = inp.read(buffer))!= -1) {
+				
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+}
+
+public class Hlavni {
+
+	public static void main(String[] args) {
+		// System.out.println("Ahoj světe");
+		// System.out.println("Argumenty jsou: " + args[2]);
+	}
+
+}

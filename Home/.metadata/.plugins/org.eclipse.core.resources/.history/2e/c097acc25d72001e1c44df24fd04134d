@@ -1,0 +1,40 @@
+import java.net.*;
+import java.io.*;
+
+
+class mojeVlakno extends Thread {
+	Socket s;
+	public mojeVlakno(Socket s) {
+		this.s = s;
+	}
+	public void Run() {
+		int pocet, pocetBajtu = 0;
+		byte [] buffer = new byte [10000];
+		InputStream inp;
+		try {
+			inp = s.getInputStream();
+			while ((pocet = inp.read(buffer))!= -1) {
+				pocetBajtu += pocet;
+			}
+			System.out.println("Server ukoncil  spojeni = vlakno konci");
+			s.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+			if (s.isClosed()) System.err.println("Konec vlakna, protoze socket je uzavren!");
+			System.err.println("Chyba při přečtení socketu!");
+		}
+		System.out.printf("Prijal jsem  %d bajtu\n", pocetBajtu);
+	}
+	
+}
+
+public class Hlavni {
+
+	public static void main(String[] args) {
+		// System.out.println("Ahoj světe");
+		// System.out.println("Argumenty jsou: " + args[2]);
+	}
+
+}

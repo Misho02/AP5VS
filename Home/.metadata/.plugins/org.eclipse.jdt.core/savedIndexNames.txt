@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\Fatal\Documents\03_Zimni_Semestr\Pøedmìty\AP5VS\Workspaces\Home\.metadata\.plugins\org.eclipse.jdt.core
+2959657193.index
+795190447.index
+1865797976.index

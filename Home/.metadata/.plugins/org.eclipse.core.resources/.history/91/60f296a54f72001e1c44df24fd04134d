@@ -1,0 +1,22 @@
+import java.net.*;
+
+
+class mojeVlakno extends Thread {
+	Socket s;
+	public mojeVlakno(Socket s) {
+		this.s = s;
+	}
+	public void Run() {
+		
+	}
+	
+}
+
+public class Hlavni {
+
+	public static void main(String[] args) {
+		// System.out.println("Ahoj světe");
+		// System.out.println("Argumenty jsou: " + args[2]);
+	}
+
+}
