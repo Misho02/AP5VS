@@ -1,7 +1,5 @@
 import java.net.*;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.io.*;
 
 class mujUkolUDP implements Runnable {
@@ -98,12 +96,12 @@ class mujUkol implements Runnable {
 			System.out.println("main() > socket je closed, koncime...");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:UnknownException");
+			//e.printStackTrace();
+			System.err.println("main:UnknownException");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:IOException");
+			// e.printStackTrace();
+			System.err.println("main:IOException");
 		}
 		System.out.printf("Odeslano %d pozadavku, %d bajtu\n", pocetPozadavku, pocetBajtu);
 	}
@@ -120,39 +118,7 @@ public class Hlavni {
 		try {
 			URL url = new URL("https://pastebin.com/raw/vF3UE9Pq");
 			URLConnection con = url.openConnection();
-			Scanner s = new Scanner(con.getInputStream());
-			ExecutorService executor = Executors.newFixedThreadPool(80); 
-			while (s.hasNext()) {
-				String line = s.nextLine();
-				String[] arr = line.split(" ");
-				if (!(arr.length == 5)) {
-					System.err.println("Špatný formát adresy: " + line);
-				}
-				String host = arr[0];
-				int port = Integer.parseInt(arr[1]);
-				int parallelConection = Integer.parseInt(arr[2]);
-				int requestCount = Integer.parseInt(arr[3]);
-				String protocol = arr[4];
-				
-				if (protocol.equals("TCP")) {
-					mujUkol tcp = new mujUkol(host, port);
-					for (int i = 0; i < parallelConection; i++) {
-						executor.execute(tcp);
-						System.out.println("TCP ukol: " + i);
-					}
-				}
-				else if (protocol.equals("UDP")) {
-					mujUkol udp = new mujUkol(host, port);
-					for (int i = 0; i < parallelConection; i++) {
-						executor.execute(udp);
-						System.out.println("UDP ukol: " + i);
-					}
-				}
-				else
-					System.err.println("Nevalidní typ protokolu: " + protocol);
-			}
-			executor.shutdown();
-			
+			Scanner s = new Scanner();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

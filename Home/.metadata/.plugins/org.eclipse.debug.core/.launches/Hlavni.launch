@@ -13,5 +13,6 @@
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Hlavni"/>
     <stringAttribute key="org.eclipse.jdt.launching.MODULE_NAME" value="Stresser"/>
+    <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="https://pastebin.com/raw/vF3UE9Pq"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Stresser"/>
 </launchConfiguration>

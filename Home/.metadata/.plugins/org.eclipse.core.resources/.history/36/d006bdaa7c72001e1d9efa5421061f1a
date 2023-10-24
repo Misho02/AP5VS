@@ -98,12 +98,12 @@ class mujUkol implements Runnable {
 			System.out.println("main() > socket je closed, koncime...");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:UnknownException");
+			//e.printStackTrace();
+			System.err.println("main:UnknownException");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:IOException");
+			// e.printStackTrace();
+			System.err.println("main:IOException");
 		}
 		System.out.printf("Odeslano %d pozadavku, %d bajtu\n", pocetPozadavku, pocetBajtu);
 	}

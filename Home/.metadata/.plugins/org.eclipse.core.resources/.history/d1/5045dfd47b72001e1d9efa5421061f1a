@@ -98,12 +98,12 @@ class mujUkol implements Runnable {
 			System.out.println("main() > socket je closed, koncime...");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:UnknownException");
+			//e.printStackTrace();
+			System.err.println("main:UnknownException");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			//System.err.println("main:IOException");
+			// e.printStackTrace();
+			System.err.println("main:IOException");
 		}
 		System.out.printf("Odeslano %d pozadavku, %d bajtu\n", pocetPozadavku, pocetBajtu);
 	}
@@ -134,24 +134,15 @@ public class Hlavni {
 				int requestCount = Integer.parseInt(arr[3]);
 				String protocol = arr[4];
 				
-				if (protocol.equals("TCP")) {
-					mujUkol tcp = new mujUkol(host, port);
+				if (protocol == "TCP") {
+					mujUkol u = new mujUkol(host, port);
 					for (int i = 0; i < parallelConection; i++) {
-						executor.execute(tcp);
+						executor.execute(u);
 						System.out.println("TCP ukol: " + i);
 					}
 				}
-				else if (protocol.equals("UDP")) {
-					mujUkol udp = new mujUkol(host, port);
-					for (int i = 0; i < parallelConection; i++) {
-						executor.execute(udp);
-						System.out.println("UDP ukol: " + i);
-					}
-				}
-				else
-					System.err.println("Nevalidní typ protokolu: " + protocol);
 			}
-			executor.shutdown();
+			
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
